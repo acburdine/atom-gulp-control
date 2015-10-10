@@ -2,7 +2,7 @@ crypto = require 'crypto'
 fs = require 'fs'
 path = require 'path'
 
-{BufferedProcess} = require 'atom'
+{BufferedNodeProcess} = require 'atom'
 {View} = require 'atom-space-pen-views'
 
 Convert = require 'ansi-to-html'
@@ -116,10 +116,6 @@ class GulpControlView extends View
 
     args = [task, '--color']
 
-    process.env.PATH = switch process.platform
-      when 'win32' then process.env.PATH
-      else "#{process.env.PATH}:/usr/local/bin"
-
     options =
       cwd: @gulpCwd
       env: process.env
@@ -137,7 +133,7 @@ class GulpControlView extends View
     @find('.tasks li.task.active').removeClass 'active'
     @find(".tasks li.task##{tid}").addClass 'active running'
 
-    @process = new BufferedProcess({command, args, options, stdout, stderr, exit})
+    @process = new BufferedNodeProcess({command, args, options, stdout, stderr, exit})
     return
 
   writeOutput: (line, klass) ->
