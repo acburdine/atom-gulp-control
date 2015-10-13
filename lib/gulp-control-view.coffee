@@ -14,6 +14,7 @@ class GulpControlView extends View
     @div class: 'gulp-control', =>
       @ul class: 'tasks', outlet: 'taskList'
       @div class: 'output', outlet: 'outputPane'
+      @aside class: 'clear', 'Clear'
 
   serialize: ->
 
@@ -25,10 +26,13 @@ class GulpControlView extends View
       @writeOutput 'No project path found, aborting', 'error'
       return
 
-    @click '.tasks li.task', (event) =>
+    @on 'click', '.tasks li.task', (event) =>
       task = event.target.textContent
       for t in @tasks when t is task
         return @runGulp(task)
+
+    @on 'click', '.clear', =>
+      @outputPane.empty()
 
     @getGulpTasks()
     return

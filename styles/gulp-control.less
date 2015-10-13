@@ -6,6 +6,7 @@
 
 .gulp-control {
   color: @text-color;
+  font: @font-family;
 
   .tasks {
     float: left;
@@ -46,12 +47,32 @@
 
     pre {
       padding: 0;
+      margin: 0;
+      border: 0;
       font-size: 11px;
       background: @tool-panel-background-color;
 
       &.error {
         color: @text-color-error;
       }
+    }
+  }
+
+  .clear {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0);
+    border: 1px solid @text-color;
+    border-radius: 5px;
+    z-index: 1000;
+    padding: 10px;
+
+    &:hover {
+      background-color: @text-color-highlight;
+      border: 1px solid @text-color-highlight;
+      color: @tool-panel-background-color;
+      cursor: pointer;
     }
   }
 }
